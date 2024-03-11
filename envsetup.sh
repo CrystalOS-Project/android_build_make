@@ -218,7 +218,7 @@ function check_product()
     export CRYSTAL_BUILD
 
         TARGET_PRODUCT=$1 \
-        TARGET_RELEASE= \
+        TARGET_RELEASE=$2 \
         TARGET_BUILD_VARIANT= \
         TARGET_BUILD_TYPE= \
         TARGET_BUILD_APPS= \
@@ -836,14 +836,14 @@ function lunch()
     release=$(grep "BUILD_ID" build/make/core/build_id.mk | tail -1 | cut -d '=' -f 2 | cut -d '.' -f 1 | tr '[:upper:]' '[:lower:]')
     export TARGET_RELEASE=$release
 
-    if ! check_product $product
+    if ! check_product $product $release
     then
         # if we can't find a product, try to grab it off the CrystalOS GitHub
         T=$(gettop)
         cd $T > /dev/null
         vendor/crystal/build/tools/roomservice.py $product
         cd - > /dev/null
-        check_product $product
+        check_product $product $release
     else
         T=$(gettop)
         cd $T > /dev/null
