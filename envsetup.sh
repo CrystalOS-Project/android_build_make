@@ -833,7 +833,7 @@ function lunch()
     fi
 
     # Always pick the latest release
-    release=$(grep "BUILD_ID" build/make/core/build_id.mk | tail -1 | cut -d '=' -f 2 | cut -d '.' -f 1 | tr '[:upper:]' '[:lower:]')
+    release=$(grep "BUILD_ID" $ANDROID_BUILD_TOP/build/make/core/build_id.mk | tail -1 | cut -d '=' -f 2 | cut -d '.' -f 1 | tr '[:upper:]' '[:lower:]')
     export TARGET_RELEASE=$release
 
     if ! check_product $product $release
